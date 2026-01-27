@@ -96,47 +96,50 @@ useEffect(() => {
 
 
   return (
-    <div className="app-container">
-      <PostList
-  posts={posts}
-  activePostId={activePostId}
-  setActivePostId={setActivePostId}
-  createPost={createPost}
-  deletePost={deletePost}
-  theme={theme}
-  setTheme={setTheme}
-/>
+  <div className="container-fluid p-0 app-container">
+    <div className="row g-0 h-100">
+      
+      {/* Sidebar - Column 1 (3 units wide on medium screens) */}
+      <div className="col-md-3 col-lg-2 border-end h-100 overflow-auto">
+        <PostList
+          posts={posts}
+          activePostId={activePostId}
+          setActivePostId={setActivePostId}
+          createPost={createPost}
+          deletePost={deletePost}
+          theme={theme}
+          setTheme={setTheme}
+        />
+      </div>
 
-{activePost && (
-  <>
-    <EditorToolbar post={activePost} />
+      {/* Main Content - Column 2 (Remaining space) */}
+      <div className="col-md-9 col-lg-10 h-100 d-flex flex-column">
+        {activePost ? (
+          <>
+            <EditorToolbar post={activePost} />
+            <div className="row g-0 flex-grow-1 overflow-hidden">
+              
+              {/* Editor Side */}
+              <div className="col-6 border-end h-100 p-3 overflow-auto">
+                <PostTitle title={activePost.title} onChange={updatePostTitle} />
+                <Editor markdown={activePost.content} setMarkdown={updatePostContent} />
+              </div>
 
-    <div className="editor">
-      <PostTitle
-        title={activePost.title}
-        onChange={updatePostTitle}
-      />
+              {/* Preview Side */}
+              <div className="col-6 h-100 p-3 overflow-auto">
+                <Preview markdown={activePost.content} />
+              </div>
 
-      <Editor
-        markdown={activePost.content}
-        setMarkdown={updatePostContent}
-      />
+            </div>
+          </>
+        ) : (
+          <div className="d-flex h-100 align-items-center justify-content-center">
+            <p className="text-muted">Select or create a post to start editing</p>
+          </div>
+        )}
+      </div>
+
     </div>
-
-    <Preview markdown={activePost.content} />
-  </>
-)}
-
-
-      {/* {activePost && (
-        <>
-          <Editor
-            markdown={activePost.content}
-            setMarkdown={updatePostContent}
-          />
-          <Preview markdown={activePost.content} />
-        </>
-      )} */}
-    </div>
-  );
+  </div>
+);
 }

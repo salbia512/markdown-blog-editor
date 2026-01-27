@@ -1,123 +1,57 @@
+/* Bootstrap Theme Sync */
 :root[data-theme="light"] {
   --bg: #ffffff;
-  --text: #111;
-  --panel: #f5f5f5;
-  --border: #ddd;
+  --text: #212529;
 }
 
 :root[data-theme="dark"] {
   --bg: #121212;
-  --text: #eaeaea;
-  --panel: #1e1e1e;
-  --border: #333;
+  --text: #f8f9fa;
 }
 
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont;
-}
-
-.app-container {
-  display: grid;
-  /* Sidebar is 260px, Editor and Preview take equal remaining space */
-  grid-template-columns: 260px 1fr 1fr;
-  /* Toolbar takes auto height, rest takes remaining */
-  grid-template-rows: auto 1fr; 
-  height: 100vh;
-}
-
-/* Fix: Sidebar/PostList should occupy the full height of the left column */
-.post-list {
-  grid-row: 1 / 3; 
-  width: 100%; /* Occupy the 260px column fully */
-  border-right: 1px solid var(--border);
-  background: var(--panel);
-  padding: 10px;
-  overflow-y: auto;
-  color: var(--text);
-  box-sizing: border-box;
-}
-
-/* Fix: Toolbar spans across both Editor and Preview columns */
-.toolbar {
-  grid-column: 2 / 4;
-  display: flex;
-  gap: 10px;
-  padding: 10px;
-  border-bottom: 1px solid var(--border);
-  background: var(--panel);
-}
-
-.editor, .preview {
-  background: var(--panel);
-  overflow-y: auto;
-}
-
-.editor {
-  border-right: 1px solid var(--border);
-}
-
-/* Update this section in your index.css */
-.editor textarea {
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  font-size: 16px;
-  border: none;
-  outline: none;
-  background: transparent; /* Makes background match the panel */
-  color: var(--text);      /* <--- This is the fix! It forces the text to use your variable */
-  line-height: 1.6;
-  resize: none;
-  font-family: inherit;    /* Makes the font match the rest of your app */
-}
-
-/* Ensure the preview also uses the variable for text */
-.preview {
-  padding: 20px;
-  color: var(--text);
-  background: var(--bg); /* Or var(--panel) depending on your preference */
-  overflow-y: auto;
-}
-
-.post-list div {
-  cursor: pointer;
-  padding: 8px;
-  margin-bottom: 6px;
-  border-radius: 4px;
-  color: var(--text);
-}
-
-.post-list div:hover {
-  background: var(--border);
-}
-
-.post-list div.active {
-  background: var(--border);
-  font-weight: bold;
-}
-
-.post-title-input {
-  width: 100%;
-  font-size: 24px;
-  font-weight: 600;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: inherit;
-  margin-bottom: 12px;
-}
-
-/* Using a more specific selector to force the color */
-[data-theme] .editor textarea,
-[data-theme] textarea {
+  background-color: var(--bg) !important;
   color: var(--text) !important;
-  background-color: transparent !important;
+  overflow: hidden; /* Prevent double scrollbars on the whole page */
 }
 
-/* Also ensure the preview text is forced to update */
-[data-theme] .preview {
-  color: var(--text) !important;
+/* Force Bootstrap components to respect our Dark Mode variables */
+[data-theme="dark"] .bg-body,
+[data-theme="dark"] .bg-body-tertiary {
+  background-color: #1e1e1e !important;
+  color: #f8f9fa !important;
+}
+
+[data-theme="dark"] .border-end,
+[data-theme="dark"] .border-start,
+[data-theme="dark"] .border-bottom,
+[data-theme="dark"] .border-top {
+  border-color: #333 !important;
+}
+
+/* Markdown Styling within Preview */
+.markdown-body h1, .markdown-body h2 {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.3em;
+  margin-top: 1em;
+}
+
+[data-theme="dark"] .markdown-body h1, 
+[data-theme="dark"] .markdown-body h2 {
+  border-color: #444;
+}
+
+/* Responsive Fix: On Mobile, hide preview or stack it */
+@media (max-width: 768px) {
+  .app-container {
+    overflow-y: auto;
+  }
+  .row.flex-grow-1 {
+    flex-direction: column;
+  }
+  .col-6 {
+    width: 100% !important;
+    height: auto !important;
+    border: none !important;
+  }
 }

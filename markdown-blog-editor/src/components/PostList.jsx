@@ -8,88 +8,70 @@ export default function PostList({
   deletePost
 }) {
   return (
-    <div className="post-list" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+    <div className="d-flex flex-column h-100 p-3 bg-body-tertiary">
       {/* THEME TOGGLE */}
       <button
-        className="theme-toggle"
+        className={`btn btn-sm mb-2 ${theme === "light" ? "btn-outline-dark" : "btn-outline-light"}`}
         onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-        style={{ width: "100%", marginBottom: "10px" }}
       >
-        {theme === "light" ? "🌙 Dark" : "☀️ Light"}
+        {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
       </button>
 
       {/* CREATE POST */}
       <button 
-        onClick={createPost} 
-        style={{ width: "100%", marginBottom: "20px" }}
+        className="btn btn-primary w-100 mb-3 shadow-sm"
+        onClick={createPost}
       >
         + New Post
       </button>
 
       {/* POST ITEMS CONTAINER */}
-      <div className="posts-container" style={{ flex: 1, overflowY: "auto" }}>
+      <div className="list-group list-group-flush flex-grow-1 overflow-auto pe-2">
         {posts.map((post) => (
           <div
             key={post.id}
-            className={post.id === activePostId ? "active" : ""}
             onClick={() => setActivePostId(post.id)}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              padding: "10px",
-              marginBottom: "8px",
-              cursor: "pointer",
-              borderRadius: "4px",
-              position: "relative"
-            }}
+            className={`list-group-item list-group-item-action border-0 rounded mb-2 shadow-sm p-3 ${
+              post.id === activePostId ? "active" : ""
+            }`}
+            style={{ cursor: "pointer" }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-              <strong style={{ fontSize: "0.9rem", overflow: "hidden", textOverflow: "ellipsis" }}>
-                {post.title}
-              </strong>
+            <div className="d-flex justify-content-between align-items-start">
+              <div className="text-truncate me-2">
+                <strong className="d-block text-truncate" style={{ maxWidth: "150px" }}>
+                  {post.title}
+                </strong>
+                <small className={post.id === activePostId ? "text-light" : "text-muted"}>
+                  {new Date(post.updatedAt).toLocaleDateString()}
+                </small>
+              </div>
               
               <button
+                className={`btn btn-link btn-sm p-0 border-0 ${
+                  post.id === activePostId ? "text-light" : "text-danger"
+                }`}
                 onClick={(e) => {
                   e.stopPropagation();
                   deletePost(post.id);
-                }}
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  color: "red",
-                  cursor: "pointer",
-                  padding: "0 5px",
-                  fontWeight: "bold"
                 }}
               >
                 ✕
               </button>
             </div>
-
-            <small style={{ opacity: 0.6, fontSize: "0.75rem", marginTop: "4px" }}>
-              {new Date(post.updatedAt).toLocaleString()}
-            </small>
           </div>
         ))}
       </div>
 
-      {/* MARKDOWN CHEAT SHEET */}
-      <div className="markdown-guide" style={{ 
-        marginTop: "20px", 
-        paddingTop: "15px", 
-        borderTop: "1px solid var(--border)", 
-        fontSize: "0.75rem" 
-      }}>
-        <p style={{ fontWeight: "bold", marginBottom: "8px", opacity: 0.8 }}>Markdown Guide</p>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5px", opacity: 0.7 }}>
-          <span># H1</span>
-          <span>**Bold**</span>
-          <span>## H2</span>
-          <span>*Italic*</span>
-          <span>- List</span>
-          <span>`Code`</span>
-          <span>[Link]()</span>
-          <span>{">"} Quote</span>
+      {/* MARKDOWN CHEAT SHEET (Pinned at bottom) */}
+      <div className="mt-3 pt-3 border-top">
+        <h6 className="small fw-bold text-uppercase opacity-75">Markdown Guide</h6>
+        <div className="row g-1 small opacity-75">
+          <div className="col-6"><code># H1</code></div>
+          <div className="col-6"><code>**B**</code></div>
+          <div className="col-6"><code>## H2</code></div>
+          <div className="col-6"><code>*I*</code></div>
+          <div className="col-6"><code>- List</code></div>
+          <div className="col-6"><code>`Code`</code></div>
         </div>
       </div>
     </div>
