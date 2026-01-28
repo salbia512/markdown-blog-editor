@@ -63,10 +63,11 @@ src/
 Screenshots of the editor interface are available below.
 
 <p align="center">
-  <img src="screenshots/sc1.jpg" width="45%" alt="Desktop View" />
-  <img src="screenshots/sc2.jpg" width="45%" alt="Mobile View" />
-    <img src="screenshots/sc3.jpg" width="45%" alt="Mobile View" />
+  <img src="screenshots/sc1.JPG" width="45%" alt="Desktop View" />
+  <img src="screenshots/sc2.JPG" width="45%" alt="Mobile View" />
+    <img src="screenshots/sc3.JPG" width="45%" alt="Mobile View" />
 </p>
+
 
 ## Future Improvements
 
