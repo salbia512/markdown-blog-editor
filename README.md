@@ -62,11 +62,11 @@ src/
 
 Screenshots of the editor interface are available below.
 
-![Editor View](sc1.jpg)
+![Editor View](screenshots/sc1.jpg)
 
-![Editor View](sc2.jpg)
+![Editor View](screenshots/sc2.jpg)
 
-![Editor View](sc3.jpg)
+![Editor View](screenshots/sc3.jpg)
 
 ## Future Improvements
 
